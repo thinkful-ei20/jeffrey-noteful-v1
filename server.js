@@ -28,17 +28,13 @@ app.get('/api/notes/:id', (req, res) => {
   res.json(data.find(item => item.id === parseInt(req.params.id)));
 });
 
-app.get('/boom', (req, res, next) => {
-  throw new Error('Boom!!');
-});
-
-app.use(function (req, res, next) {
+app.use(function (req, res, next) { // eslint-disable-line no-unused-vars
   var err = new Error('Not Found');
   err.status = 404;
   res.status(404).json({ message: 'Not Found' });
 });
 
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res, next) { // eslint-disable-line no-unused-vars
   res.status(err.status || 500);
   res.json({
     message: err.message,
