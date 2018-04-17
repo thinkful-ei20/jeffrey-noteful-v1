@@ -6,7 +6,7 @@ const data = require('./db/notes');
 
 const app = express();
 
-const { PORT } = require('./config');;
+const { PORT } = require('./config');
 
 app.use(express.static('public'));
 
