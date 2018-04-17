@@ -3,6 +3,8 @@
 const express = require('express');
 
 const data = require('./db/notes');
+const simDB = require('./db/simDB');
+const notes = simDB.initialize(data);
 
 const app = express();
 
@@ -14,14 +16,15 @@ app.use(express.static('public'));
 
 app.use(myLogger);
 
-app.get('/api/notes', (req, res) => {
-  let results = data.slice();
+app.get('/api/notes', (req, res, next) => {
+  const { searchTerm } = req.query;
 
-  if(req.query.searchTerm) {
-    results = results.filter(item => item.title.toUpperCase().includes(req.query.searchTerm.toUpperCase()));
-  }
-
-  res.json(results);
+  notes.filter(searchTerm, (err, list) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(list);
+  });
 });
 
 app.get('/api/notes/:id', (req, res) => {
