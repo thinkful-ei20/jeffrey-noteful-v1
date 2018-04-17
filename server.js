@@ -27,8 +27,13 @@ app.get('/api/notes', (req, res, next) => {
   });
 });
 
-app.get('/api/notes/:id', (req, res) => {
-  res.json(data.find(item => item.id === parseInt(req.params.id)));
+app.get('/api/notes/:id', (req, res, next) => {
+  notes.find(req.params.id, (err, item) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(item);
+  });
 });
 
 app.use(function (req, res, next) { // eslint-disable-line no-unused-vars
