@@ -8,7 +8,11 @@ const app = express();
 
 const { PORT } = require('./config');
 
+const { myLogger } = require('./middleware/myLogger');
+
 app.use(express.static('public'));
+
+app.use(myLogger);
 
 app.get('/api/notes', (req, res) => {
   let results = data.slice();
