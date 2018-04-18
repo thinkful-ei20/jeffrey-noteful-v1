@@ -5,11 +5,12 @@ const app = express();
 
 const { PORT } = require('./config');
 
-const { myLogger } = require('./middleware/myLogger');
+const morgan = require('morgan');
+
 
 const notesRouter = require('./router/notes.router');
 
-app.use(myLogger);
+app.use(morgan('dev'));
 
 app.use(express.static('public'));
 
