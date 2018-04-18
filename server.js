@@ -16,7 +16,7 @@ app.use(express.static('public'));
 
 app.use(express.json());
 
-app.use('/', notesRouter);
+app.use('/api', notesRouter);
 
 app.use(function (req, res, next) { // eslint-disable-line no-unused-vars
   var err = new Error('Not Found');
