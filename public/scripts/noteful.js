@@ -99,11 +99,11 @@ const noteful = (function () {
           });
 
       } else {
-        
+
         api.create(noteObj)
           .then(item => {
             store.currentNote = item;
-            return api.search(store.currentSearchTerm);            
+            return api.search(store.currentSearchTerm);
           })
           .then(list => {
             store.notes = list;
@@ -132,18 +132,22 @@ const noteful = (function () {
       event.preventDefault();
 
       const noteId = getNoteIdFromElement(event.currentTarget);
-
-      api.remove(noteId, () => {
-
-        api.search(store.currentSearchTerm, searchResponse => {
-          store.notes = searchResponse;
+      
+      api.remove(noteId)
+        .then(() => {
+          return api.search(store.currentSearchTerm);
+        })
+        .then(list => {
+          store.notes = list;
           if (noteId === store.currentNote.id) {
             store.currentNote = {};
           }
           render();
-        });
+        })
+        .catch(err => {
+          next(err);
+        })
 
-      });
     });
   }
 
