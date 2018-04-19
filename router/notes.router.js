@@ -22,12 +22,19 @@ router.get('/notes', (req, res, next) => {
 });
 
 router.get('/notes/:id', (req, res, next) => {
-  notes.find(req.params.id, (err, item) => {
-    if (err) {
-      return next(err);
-    }
-    res.json(item);
-  });
+  const id = req.params.id;
+  
+  notes.find(id)
+    .then(item => {
+      if (item) {
+        res.json(item);
+      } else {
+        next();
+      }
+    })
+    .catch(err => {
+      next(err)
+    });
 });
 
 router.put('/notes/:id', (req, res, next) => {
