@@ -21,13 +21,12 @@ const api = {
   },
 
   update: function (id, obj, callback) {
-    $.ajax({
+    return $.ajax({
       type: 'PUT',
       url: `/api/notes/${id}`,
       contentType: 'application/json',
       dataType: 'json',
       data: JSON.stringify(obj),
-      success: callback
     });
   },
 
