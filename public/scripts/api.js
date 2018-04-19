@@ -20,7 +20,7 @@ const api = {
     });
   },
 
-  update: function (id, obj, callback) {
+  update: function (id, obj) {
     return $.ajax({
       type: 'PUT',
       url: `/api/notes/${id}`,
