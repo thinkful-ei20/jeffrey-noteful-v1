@@ -59,7 +59,7 @@ const noteful = (function () {
 
       const searchTerm = $('.js-note-search-entry').val();
       store.currentSearchTerm = searchTerm ? { searchTerm } : {};
-      
+
       api.search(store.currentSearchTerm)
         .then(list => {
           store.notes = list;
@@ -85,27 +85,33 @@ const noteful = (function () {
 
       if (noteObj.id) {
 
-        api.update(store.currentNote.id, noteObj, updateResponse => {
-          store.currentNote = updateResponse;
-
-          api.search(store.currentSearchTerm, searchResponse => {
-            store.notes = searchResponse;
+        api.update(store.currentNote.id, noteObj)
+          .then(item => {
+            store.currentNote = item;
+            return api.search(store.currentSearchTerm);
+          })
+          .then(list => {
+            store.notes = list;
             render();
+          })
+          .catch(err => {
+            next(err);
           });
-
-        });
 
       } else {
-
-        api.create(noteObj, createResponse => {
-          store.currentNote = createResponse;
-
-          api.search(store.currentSearchTerm, searchResponse => {
-            store.notes = searchResponse;
+        
+        api.create(noteObj)
+          .then(item => {
+            store.currentNote = item;
+            return api.search(store.currentSearchTerm);            
+          })
+          .then(list => {
+            store.notes = list;
             render();
+          })
+          .catch(err => {
+            next(err);
           });
-
-        });
       }
 
     });
