@@ -34,7 +34,7 @@ router.get('/notes/:id', (req, res, next) => {
       }
     })
     .catch(err => {
-      next(err)
+      next(err);
     });
 });
 
@@ -58,7 +58,7 @@ router.put('/notes/:id', (req, res, next) => {
       }
     })
     .catch(err => {
-      next(err)
+      next(err);
     });
 });
 
@@ -81,7 +81,7 @@ router.post('/notes', (req, res, next) => {
       }
     })
     .catch(err => {
-      next(err)
+      next(err);
     });
 });
 
@@ -94,7 +94,7 @@ router.delete('/notes/:id', (req, res, next) => {
       res.sendStatus(204);
     })
     .catch(err => {
-      next(err)
+      next(err);
     });
 });
 

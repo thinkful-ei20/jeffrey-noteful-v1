@@ -41,12 +41,15 @@ const noteful = (function () {
       event.preventDefault();
 
       const noteId = getNoteIdFromElement(event.currentTarget);
-
-      api.details(noteId, detailsResponse => {
-        store.currentNote = detailsResponse;
-        render();
-      });
-
+      
+      api.details(noteId)
+        .then(item => {
+          store.currentNote = item;
+          render();
+        })
+        .catch(err => {
+          next(err);
+        });
     });
   }
 
