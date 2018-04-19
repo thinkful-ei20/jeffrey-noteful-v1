@@ -10,20 +10,21 @@ const data = require('../db/notes');
 const simDB = require('../db/simDB');
 const notes = simDB.initialize(data);
 
-router.get('/notes', (req, res, next) => {
-  const { searchTerm } = req.query;
-
-  notes.filter(searchTerm, (err, list) => {
-    if (err) {
-      return next(err);
-    }
-    res.json(list);
-  });
+router.get('/notes', (req, res, next) => {  
+  const { searchTerm }  = req.query;
+  
+  notes.filter(searchTerm)
+    .then(list => {
+      res.json(list);
+    })
+    .catch(err => {
+      next(err);
+    });
 });
 
 router.get('/notes/:id', (req, res, next) => {
   const id = req.params.id;
-  
+
   notes.find(id)
     .then(item => {
       if (item) {
