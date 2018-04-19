@@ -3,10 +3,14 @@
 
 $(document).ready(function () {
   noteful.bindEventListeners();
-
-  api.search({}, response => {
-    store.notes = response;
-    noteful.render();
-  });
+  
+  api.search({})
+    .then(list => {
+      store.notes = list;
+      noteful.render();
+    })
+    .catch(err => {
+      next(err);
+    });    
 
 });
