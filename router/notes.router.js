@@ -40,8 +40,6 @@ router.get('/notes/:id', (req, res, next) => {
 
 router.put('/notes/:id', (req, res, next) => {
   const id = req.params.id;
-
-  /***** Never trust users - validate input *****/
   const updateObj = {};
   const updateFields = ['title', 'content'];
 
@@ -50,17 +48,18 @@ router.put('/notes/:id', (req, res, next) => {
       updateObj[field] = req.body[field];
     }
   });
-
-  notes.update(id, updateObj, (err, item) => {
-    if (err) {
-      return next(err);
-    }
-    if (item) {
-      res.json(item);
-    } else {
-      next();
-    }
-  });
+  
+  notes.update(id, updateObj)
+    .then(item => {
+      if (item) {
+        res.json(item);
+      } else {
+        next();
+      }
+    })
+    .catch(err => {
+      next(err)
+    });
 });
 
 // Post (insert) an item
