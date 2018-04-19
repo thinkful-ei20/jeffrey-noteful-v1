@@ -41,7 +41,7 @@ const noteful = (function () {
       event.preventDefault();
 
       const noteId = getNoteIdFromElement(event.currentTarget);
-      
+
       api.details(noteId)
         .then(item => {
           store.currentNote = item;
@@ -59,12 +59,15 @@ const noteful = (function () {
 
       const searchTerm = $('.js-note-search-entry').val();
       store.currentSearchTerm = searchTerm ? { searchTerm } : {};
-
-      api.search(store.currentSearchTerm, searchResponse => {
-        store.notes = searchResponse;
-        render();
-      });
-
+      
+      api.search(store.currentSearchTerm)
+        .then(list => {
+          store.notes = list;
+          render();
+        })
+        .catch(err => {
+          next(err);
+        });
     });
   }
 
