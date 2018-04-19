@@ -86,14 +86,16 @@ router.post('/notes', (req, res, next) => {
 });
 
 router.delete('/notes/:id', (req, res, next) => {
-  notes.delete(req.params.id, (err, item) => {  // eslint-disable-line no-unused-vars
-    if (err) {
-      return next(err);
-    }
-    console.log(`Deleted note list item \`${req.params.id}\``); // eslint-disable-line no-console
-    res.sendStatus(204);
-  });
+  const id = req.params.id;
   
+  notes.delete(id)
+    .then(data => {
+      console.log(`Deleted note list item \`${id}\``); // eslint-disable-line no-console
+      res.sendStatus(204);
+    })
+    .catch(err => {
+      next(err)
+    });
 });
 
 module.exports = router;
