@@ -32,8 +32,12 @@ app.use(function (err, req, res, next) { // eslint-disable-line no-unused-vars
   });
 });
 
-app.listen(PORT, function () {
-  console.info(`Server listening on ${this.address().port}`); // eslint-disable-line no-console
-}).on('error', err => {
-  console.error(err); // eslint-disable-line no-console
-});
+if (require.main === module) {
+  app.listen(PORT, function () {
+    console.info(`Server listening on ${this.address().port}`); // eslint-disable-line no-console
+  }).on('error', err => {
+    console.error(err); // eslint-disable-line no-console
+  });
+}
+
+module.exports = app;
