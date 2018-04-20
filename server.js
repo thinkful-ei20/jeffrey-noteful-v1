@@ -7,7 +7,6 @@ const { PORT } = require('./config');
 
 const morgan = require('morgan');
 
-
 const notesRouter = require('./router/notes.router');
 
 app.use(morgan('dev'));

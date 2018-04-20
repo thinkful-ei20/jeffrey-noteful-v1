@@ -1,2 +1,9 @@
 language: node_js
-node_js: node
+node_js: stable
+deploy:
+  provider: heroku
+  api_key:
+    secure: Uec+fyxwDoGvzGHLKrR+qSdNDea7a4/e4O3ZTu4zaMK/LmBe+tzdphcREh9HHsBjnJ/l2O1D6E5ghJOeXCD90weIbOd9+34pGos466S6vS/qw6qSORIMJCCRC+7gk/2BtxFXZInTkpcn20UEqEXAzx9qAHioX2B8M3NNhi1CQonrchljylIUZ1lCemwqvsrVxtnNfUkEKrXvp+dNXnYNv8T4UBYvX06fIyg18vrSv9CfVKmmeyGKEIN6BoQoh5r5guAvGA+TjksCGORnVuBk88jw/FDp/56sTkI7zYmc8MN+cf/Qyc3d28JnGIVvP4JfEUloW1BGjxzue8rvtPWaTEqw8MYNLfrUdWz6dkjdbdGYdQAoJCvIqc7A2sRUPMKD/gv6nU+vdaXf+AeCwLmVpw897+EXJxt5B1kdcX6W6PV+Vh/9VGfu6SvXCBmDdvCO7r1BkAuEhEqlRMfX5KWurLDJh/KWsNU/0T4/CbsAUSJoC2OUpg2VbzWByLKbsa0tmNEBsPZHVkQlwS9+1o8YMiFiMnNYgu32nvBY2yUWwJ8G1o+UqUtlQKFD/HYjyJ2nIsBvcvO46a/Kkew5epvkDQYH0rfaXTDdHwzCamTmBqhweEvg8uv6vn5xQ7Sb8Cf5MOgy+vaT+kJ75Dz+MCCTj1Zhj8Lmqj43q1QUY3FmmwI=
+  app: jeffrey-noteful-v1
+  on:
+    repo: thinkful-ei20/jeffrey-noteful-v1
